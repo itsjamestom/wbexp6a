@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Budget Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#evaluateBtn").click(function () {
+                let amount = parseFloat($("#totalAmount").val());
+                let rent = parseFloat($("#rent").val());
+                let accessories = parseFloat($("#accessories").val());
+                let emergency = parseFloat($("#emergency").val());
+                let saving = parseFloat($("#saving").val());
+
+                if (isNaN(amount) || isNaN(rent) || isNaN(accessories) || isNaN(emergency) || isNaN(saving)) {
+                    alert("⚠️ Please enter valid numbers.");
+                    return;
+                }
+
+                let totalPercent = rent + accessories + emergency + saving;
+
+                if (totalPercent !== 100) {
+                    alert("⚠️ The percentages must add up to 100.");
+                    return;
+                }
+
+                $("#rentResult").html("₹ " + (amount * rent / 100).toFixed(2));
+                $("#accessoriesResult").html("₹ " + (amount * accessories / 100).toFixed(2));
+                $("#emergencyResult").html("₹ " + (amount * emergency / 100).toFixed(2));
+                $("#savingResult").html("₹ " + (amount * saving / 100).toFixed(2));
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="main-box">
+        <h1>💰 Budget Calculator</h1>
+        <p class="tagline">Plan your money smartly and visualize your budget split</p>
+
+        <div class="form-section">
+            <label>Total Amount (₹)</label>
+            <input type="number" id="totalAmount" placeholder="Enter your total budget">
+        </div>
+
+        <div class="form-grid">
+            <div>
+                <label>Room Rent (%)</label>
+                <input type="number" id="rent" placeholder="e.g. 30">
+            </div>
+            <div>
+                <label>Accessories (%)</label>
+                <input type="number" id="accessories" placeholder="e.g. 20">
+            </div>
+            <div>
+                <label>Emergency (%)</label>
+                <input type="number" id="emergency" placeholder="e.g. 25">
+            </div>
+            <div>
+                <label>Saving (%)</label>
+                <input type="number" id="saving" placeholder="e.g. 25">
+            </div>
+        </div>
+
+        <button id="evaluateBtn">🚀 Evaluate My Money</button>
+
+        <div class="results">
+            <h2>📊 Results</h2>
+            <div class="result-box">
+                <p><strong>Room Rent:</strong> <span id="rentResult">--</span></p>
+                <p><strong>Accessories:</strong> <span id="accessoriesResult">--</span></p>
+                <p><strong>Emergency:</strong> <span id="emergencyResult">--</span></p>
+                <p><strong>Saving:</strong> <span id="savingResult">--</span></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
